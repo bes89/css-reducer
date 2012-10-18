@@ -1,0 +1,20 @@
+{
+    "name": "besnikb/css-reducer",
+    "type": "library",
+    "description": "The css-reducer library",
+    "keywords": ["css", "minifier", "compressor"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Besnik Brahimi",
+            "email": "besnik.br@gmail.com",
+            "homepage":"http://www.besnik.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": { "CssReducer": "src/" }
+    }
+}
