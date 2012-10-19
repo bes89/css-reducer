@@ -61,7 +61,7 @@ class Parser
      */
     public function setOption($name, $value)
     {
-        if (array_key_exists($name, $this->options))
+        if (!array_key_exists($name, $this->options))
         {
             throw new \InvalidArgumentException(sprintf('Option "%s" does not exist.'.
                 'The following options are allowed: %s', $name, join(', ', array_keys($this->options))));
