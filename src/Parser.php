@@ -176,4 +176,130 @@ class Parser
 
         return $cssDefinitionSplitted;
     }
+
+    /**
+     *
+     * @param string $fileUrlOrCss
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    protected function load($fileUrlOrCss)
+    {
+        $content = "";
+
+        if (is_array($fileUrlOrCss))
+        {
+            foreach ($fileUrlOrCss as $part)
+            {
+                $content .= $this->load($part);
+            }
+        }
+        else
+        {
+            if (strpos($fileUrlOrCss, '{') !== false)
+            {
+                $content = $fileUrlOrCss;
+            }
+            elseif (strpos($fileUrlOrCss, 'http') !== false || file_exists($fileUrlOrCss))
+            {
+                $content = file_get_contents($fileUrlOrCss);
+            }
+            else
+            {
+                throw new \InvalidArgumentException("File '$fileUrlOrCss' not found.");
+            }
+        }
+
+        return $content;
+    }
+
+    /**
+     *
+     * @param array $cssDefinitions
+     * @return array
+     */
+    protected function parseProperties(array $cssDefinitions = array())
+    {
+        foreach ($cssDefinitions as $index => $cssBlock)
+        {
+            $selector = key($cssBlock);
+            $properties = reset($cssBlock);
+
+            $matches = array();
+
+            if (preg_match_all($this->propertiesPattern, $properties, $matches))
+            {
+                $properties = array_combine($matches[1], $matches[2]);
+            }
+            else
+            {
+                $properties = array();
+            }
+
+            foreach ($properties as $name => $value)
+            {
+                $properties[trim($name)] = trim($value);
+            }
+
+            $cssDefinitions[$index][$selector] = $properties;
+        }
+
+        return $cssDefinitions;
+    }
+
+    /**
+     *
+     * @param $fileUrlOrCss
+     * @throws \InvalidArgumentException
+     * @return string
+     */
+    public function parse($fileUrlOrCss)
+    {
+        $content = $this->load($fileUrlOrCss);
+
+        if ($this->getOption('remove_comments'))
+        {
+            $content = $this->removeComments($content);
+        }
+
+        if ($this->getOption('remove_whitespaces'))
+        {
+            $content = $this->removeWhitespaces($content);
+        }
+
+        if ($this->getOption('remove_tabs'))
+        {
+            $content = $this->removeTabs($content);
+        }
+
+        if ($this->getOption('remove_newlines'))
+        {
+            $content = $this->removeNewlines($content);
+        }
+
+        $matches = array();
+
+        if (!preg_match_all($this->pattern, $content, $matches))
+        {
+            throw new \InvalidArgumentException("Nothing parsed.");
+        }
+
+        $cssDefinitions = array();
+
+        for ($i = 0; $i < count($matches[0]); $i++)
+        {
+            $cssDefinitions[] = array(
+                trim($matches[1][$i]) => trim($matches[2][$i])
+            );
+        }
+
+        if ($this->getOption('split_selectors'))
+        {
+            $cssDefinitions = $this->splitSelectors($cssDefinitions);
+        }
+
+        $cssDefinitions = $this->parseProperties($cssDefinitions);
+
+        return $cssDefinitions;
+    }
 }
