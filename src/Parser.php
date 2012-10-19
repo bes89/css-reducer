@@ -33,11 +33,11 @@ class Parser
      * @var array
      */
     protected $options = array(
-        'remove_comments',
-        'remove_whitespaces',
-        'remove_tabs',
-        'remove_newlines',
-        'split_selectors',
+        'remove_comments' => false,
+        'remove_whitespaces' => false,
+        'remove_tabs' => false,
+        'remove_newlines' => false,
+        'split_selectors' => false,
     );
 
 
