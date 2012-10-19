@@ -71,11 +71,109 @@ class Parser
     }
 
     /**
+     *
      * @param $name
      * @return mixed
      */
     public function getOption($name)
     {
         return array_key_exists($name, $this->options) ? $this->options[$name] : $name;
+    }
+
+    /**
+     * Strips C style comments
+     *
+     * @param string $css
+     * @return string
+     */
+    public function removeComments($css)
+    {
+        return preg_replace("~/\*.*?\*/~s", "", $css);
+    }
+
+    /**
+     *
+     * @param string $css
+     * @return string
+     */
+    public function removeWhitespaces($css)
+    {
+        $searchAndReplace = array(
+            ": " => ":",
+            "; " => ";",
+            ", " => ",",
+            " :" => ":",
+            " ;" => ";",
+            " ," => ",",
+            " {" => "{",
+            " }" => "}",
+            "{ " => "{",
+            "} " => "}",
+            " /*" => "/*",
+            "*/ " => "*/",
+        );
+
+        $css = str_replace(array_keys($searchAndReplace), $searchAndReplace, $css);
+
+        // remove excess whitespace
+        $css = preg_replace("~\s\s+~", "", $css);
+
+        return trim($css);
+    }
+
+    /**
+     *
+     * @param string $css
+     * @return string
+     */
+    public function removeTabs($css)
+    {
+        return str_replace("\t", '', $css);
+    }
+
+    /**
+     *
+     * @param string $css
+     * @return string
+     */
+    public function removeNewlines($css)
+    {
+        return str_replace(array("\r", "\r\n", "\n"), "", $css);
+    }
+
+    /**
+     * Splits css selectors, e.g.  a, b {} => a {} b {}
+     *
+     * @param array $cssDefinitions
+     * @return array
+     */
+    protected function splitSelectors(array $cssDefinitions)
+    {
+        $cssDefinitionSplitted = array();
+
+        $n = 0;
+
+        foreach ($cssDefinitions as $cssBlock)
+        {
+            $selectors = key($cssBlock);
+            $properties = reset($cssBlock);
+
+            if (strpos($selectors, ',') !== false)
+            {
+                foreach (explode(',', $selectors) as $selector)
+                {
+                    $cssDefinitionSplitted[$n][trim($selector)] = $properties;
+                    $n++;
+                }
+            }
+            else
+            {
+                $cssDefinitionSplitted[$n][$selectors] = $properties;
+            }
+
+            $n++;
+        }
+
+        return $cssDefinitionSplitted;
     }
 }
