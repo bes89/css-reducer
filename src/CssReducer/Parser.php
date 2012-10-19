@@ -86,7 +86,7 @@ class Parser
      * @param string $css
      * @return string
      */
-    public function removeComments($css)
+    protected function removeComments($css)
     {
         return preg_replace("~/\*.*?\*/~s", "", $css);
     }
@@ -96,7 +96,7 @@ class Parser
      * @param string $css
      * @return string
      */
-    public function removeWhitespaces($css)
+    protected function removeWhitespaces($css)
     {
         $searchAndReplace = array(
             ": " => ":",
@@ -126,7 +126,7 @@ class Parser
      * @param string $css
      * @return string
      */
-    public function removeTabs($css)
+    protected function removeTabs($css)
     {
         return str_replace("\t", '', $css);
     }
@@ -136,7 +136,7 @@ class Parser
      * @param string $css
      * @return string
      */
-    public function removeNewlines($css)
+    protected function removeNewlines($css)
     {
         return str_replace(array("\r", "\r\n", "\n"), "", $css);
     }
@@ -257,26 +257,6 @@ class Parser
     {
         $content = $this->load($fileUrlOrCss);
 
-        if ($this->getOption('remove_comments'))
-        {
-            $content = $this->removeComments($content);
-        }
-
-        if ($this->getOption('remove_whitespaces'))
-        {
-            $content = $this->removeWhitespaces($content);
-        }
-
-        if ($this->getOption('remove_tabs'))
-        {
-            $content = $this->removeTabs($content);
-        }
-
-        if ($this->getOption('remove_newlines'))
-        {
-            $content = $this->removeNewlines($content);
-        }
-
         $matches = array();
 
         if (!preg_match_all($this->pattern, $content, $matches))
@@ -301,5 +281,40 @@ class Parser
         $cssDefinitions = $this->parseProperties($cssDefinitions);
 
         return $cssDefinitions;
+    }
+
+    /**
+     *
+     * @param $fileUrlOrCss
+     * @param array $options
+     * @return string
+     */
+    public function minify($fileUrlOrCss, array $options = array())
+    {
+        $content = $this->load($fileUrlOrCss);
+
+        $this->setOptions($options);
+
+        if ($this->getOption('remove_comments'))
+        {
+            $content = $this->removeComments($content);
+        }
+
+        if ($this->getOption('remove_whitespaces'))
+        {
+            $content = $this->removeWhitespaces($content);
+        }
+
+        if ($this->getOption('remove_tabs'))
+        {
+            $content = $this->removeTabs($content);
+        }
+
+        if ($this->getOption('remove_newlines'))
+        {
+            $content = $this->removeNewlines($content);
+        }
+
+        return $content;
     }
 }
