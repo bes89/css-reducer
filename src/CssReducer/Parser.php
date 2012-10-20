@@ -92,31 +92,33 @@ class Parser
     }
 
     /**
+     * Removes excess, leading and trailing whitespaces
      *
      * @param string $css
      * @return string
      */
     protected function removeWhitespaces($css)
     {
+        // remove excess whitespace
+        $css = preg_replace("~\s\s+~", "", $css);
+
+        // remove leading and trailing whitespaces
         $searchAndReplace = array(
             ": " => ":",
             "; " => ";",
             ", " => ",",
+            "{ " => "{",
+            "} " => "}",
+            "*/ " => "*/",
             " :" => ":",
             " ;" => ";",
             " ," => ",",
             " {" => "{",
             " }" => "}",
-            "{ " => "{",
-            "} " => "}",
             " /*" => "/*",
-            "*/ " => "*/",
         );
 
         $css = str_replace(array_keys($searchAndReplace), $searchAndReplace, $css);
-
-        // remove excess whitespace
-        $css = preg_replace("~\s\s+~", "", $css);
 
         return trim($css);
     }
