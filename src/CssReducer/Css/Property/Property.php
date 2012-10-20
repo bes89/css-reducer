@@ -78,6 +78,6 @@ class Property
             throw new \Exception('There are no inputs.');
         }
 
-        return $this->inputs[0];
+        return end($this->inputs);
     }
 }
