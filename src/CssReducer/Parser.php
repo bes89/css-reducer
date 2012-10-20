@@ -43,8 +43,7 @@ class Parser
      */
     public function setOptions(array $options)
     {
-        foreach ($options as $name => $value)
-        {
+        foreach ($options as $name => $value) {
             $this->setOption($name, $value);
         }
     }
@@ -57,9 +56,8 @@ class Parser
      */
     public function setOption($name, $value)
     {
-        if (!array_key_exists($name, $this->options))
-        {
-            throw new \InvalidArgumentException(sprintf('Option "%s" does not exist.'.
+        if (!array_key_exists($name, $this->options)) {
+            throw new \InvalidArgumentException(sprintf('Option "%s" does not exist.' .
                 'The following options are allowed: %s', $name, join(', ', array_keys($this->options))));
         }
 
@@ -88,21 +86,16 @@ class Parser
 
         $n = 0;
 
-        foreach ($cssDefinitions as $cssBlock)
-        {
+        foreach ($cssDefinitions as $cssBlock) {
             $selectors = key($cssBlock);
             $properties = reset($cssBlock);
 
-            if (strpos($selectors, ',') !== false)
-            {
-                foreach (explode(',', $selectors) as $selector)
-                {
+            if (strpos($selectors, ',') !== false) {
+                foreach (explode(',', $selectors) as $selector) {
                     $cssDefinitionSplitted[$n][trim($selector)] = $properties;
                     $n++;
                 }
-            }
-            else
-            {
+            } else {
                 $cssDefinitionSplitted[$n][$selectors] = $properties;
             }
 
@@ -122,25 +115,16 @@ class Parser
     {
         $content = "";
 
-        if (is_array($fileUrlOrCss))
-        {
-            foreach ($fileUrlOrCss as $part)
-            {
+        if (is_array($fileUrlOrCss)) {
+            foreach ($fileUrlOrCss as $part) {
                 $content .= $this->load($part);
             }
-        }
-        else
-        {
-            if (strpos($fileUrlOrCss, '{') !== false)
-            {
+        } else {
+            if (strpos($fileUrlOrCss, '{') !== false) {
                 $content = $fileUrlOrCss;
-            }
-            elseif (strpos($fileUrlOrCss, 'http') !== false || file_exists($fileUrlOrCss))
-            {
+            } elseif (strpos($fileUrlOrCss, 'http') !== false || file_exists($fileUrlOrCss)) {
                 $content = file_get_contents($fileUrlOrCss);
-            }
-            else
-            {
+            } else {
                 throw new \InvalidArgumentException("File '$fileUrlOrCss' not found.");
             }
         }
@@ -155,24 +139,19 @@ class Parser
      */
     protected function parseProperties(array $cssDefinitions = array())
     {
-        foreach ($cssDefinitions as $index => $cssBlock)
-        {
+        foreach ($cssDefinitions as $index => $cssBlock) {
             $selector = key($cssBlock);
             $properties = reset($cssBlock);
 
             $matches = array();
 
-            if (preg_match_all($this->propertiesPattern, $properties, $matches))
-            {
+            if (preg_match_all($this->propertiesPattern, $properties, $matches)) {
                 $properties = array_combine($matches[1], $matches[2]);
-            }
-            else
-            {
+            } else {
                 $properties = array();
             }
 
-            foreach ($properties as $name => $value)
-            {
+            foreach ($properties as $name => $value) {
                 $properties[trim($name)] = trim($value);
             }
 
@@ -194,22 +173,19 @@ class Parser
 
         $matches = array();
 
-        if (!preg_match_all($this->pattern, $content, $matches))
-        {
+        if (!preg_match_all($this->pattern, $content, $matches)) {
             throw new \InvalidArgumentException("Nothing parsed.");
         }
 
         $cssDefinitions = array();
 
-        for ($i = 0; $i < count($matches[0]); $i++)
-        {
+        for ($i = 0; $i < count($matches[0]); $i++) {
             $cssDefinitions[] = array(
                 trim($matches[1][$i]) => trim($matches[2][$i])
             );
         }
 
-        if ($this->getOption('split_selectors'))
-        {
+        if ($this->getOption('split_selectors')) {
             $cssDefinitions = $this->splitSelectors($cssDefinitions);
         }
 

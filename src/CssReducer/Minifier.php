@@ -34,8 +34,7 @@ class Minifier
      */
     public function setOptions(array $options)
     {
-        foreach ($options as $name => $value)
-        {
+        foreach ($options as $name => $value) {
             $this->setOption($name, $value);
         }
     }
@@ -48,9 +47,8 @@ class Minifier
      */
     public function setOption($name, $value)
     {
-        if (!array_key_exists($name, $this->options))
-        {
-            throw new \InvalidArgumentException(sprintf('Option "%s" does not exist.'.
+        if (!array_key_exists($name, $this->options)) {
+            throw new \InvalidArgumentException(sprintf('Option "%s" does not exist.' .
                 'The following options are allowed: %s', $name, join(', ', array_keys($this->options))));
         }
 
@@ -77,25 +75,16 @@ class Minifier
     {
         $content = "";
 
-        if (is_array($fileUrlOrCss))
-        {
-            foreach ($fileUrlOrCss as $part)
-            {
+        if (is_array($fileUrlOrCss)) {
+            foreach ($fileUrlOrCss as $part) {
                 $content .= $this->load($part);
             }
-        }
-        else
-        {
-            if (strpos($fileUrlOrCss, '{') !== false)
-            {
+        } else {
+            if (strpos($fileUrlOrCss, '{') !== false) {
                 $content = $fileUrlOrCss;
-            }
-            elseif (strpos($fileUrlOrCss, 'http') !== false || file_exists($fileUrlOrCss))
-            {
+            } elseif (strpos($fileUrlOrCss, 'http') !== false || file_exists($fileUrlOrCss)) {
                 $content = file_get_contents($fileUrlOrCss);
-            }
-            else
-            {
+            } else {
                 throw new \InvalidArgumentException("File '$fileUrlOrCss' not found.");
             }
         }
@@ -178,23 +167,19 @@ class Minifier
 
         $this->setOptions($options);
 
-        if ($this->getOption('remove_comments'))
-        {
+        if ($this->getOption('remove_comments')) {
             $content = $this->removeComments($content);
         }
 
-        if ($this->getOption('remove_whitespaces'))
-        {
+        if ($this->getOption('remove_whitespaces')) {
             $content = $this->removeWhitespaces($content);
         }
 
-        if ($this->getOption('remove_tabs'))
-        {
+        if ($this->getOption('remove_tabs')) {
             $content = $this->removeTabs($content);
         }
 
-        if ($this->getOption('remove_newlines'))
-        {
+        if ($this->getOption('remove_newlines')) {
             $content = $this->removeNewlines($content);
         }
 

@@ -10,21 +10,16 @@
  */
 
 $autoloadFiles = array(
-    __DIR__.'/../vendor/autoload.php',
-    __DIR__."/../../../autoload.php",
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . "/../../../autoload.php",
 );
 
-if (file_exists($autoloadFiles[0]))
-{
+if (file_exists($autoloadFiles[0])) {
     $loader = require $autoloadFiles[0];
-}
-elseif (file_exists($autoloadFiles[1]))
-{
+} elseif (file_exists($autoloadFiles[1])) {
     $loader = require $autoloadFiles[1];
-}
-else
-{
-    die("You have to install the project dependencies by running the following commands:".
+} else {
+    die("You have to install the project dependencies by running the following commands:" .
         "curl -s http://getcomposer.org/installer | php && php composer.phar install");
 }
 

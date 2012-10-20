@@ -9,7 +9,12 @@
  * file that was distributed with this source code.
  */
 
-error_reporting(E_ALL);
+namespace CssReducer\Css\Property;
 
-$loader = require __DIR__ . '/../src/bootstrap.php';
-$loader->add('CssReducer\Test', __DIR__);
+class Property
+{
+    public function merge(Property $newProperty)
+    {
+
+    }
+}

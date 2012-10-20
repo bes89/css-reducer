@@ -60,10 +60,9 @@ class MinifierTest extends \PHPUnit_Framework_TestCase
 
         $chars = array(' ', ',', ';', ':', '{', '}');
 
-        foreach ($chars as $char)
-        {
-            $charWithLeadingWhitespace = ' '.$char;
-            $charWithTrailingWhitespace = $char.' ';
+        foreach ($chars as $char) {
+            $charWithLeadingWhitespace = ' ' . $char;
+            $charWithTrailingWhitespace = $char . ' ';
 
             $this->assertFalse(strpos($minifiedCss, $charWithLeadingWhitespace));
             $this->assertFalse(strpos($minifiedCss, $charWithTrailingWhitespace));
