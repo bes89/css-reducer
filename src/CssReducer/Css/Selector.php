@@ -33,13 +33,32 @@ class Selector
      * @param $name
      * @param array $properties
      */
-    public function __construct($name, array $properties = null)
+    public function __construct($name = null, array $properties = null)
     {
-        $this->name = str_replace(', ', ',', $name);
+        if ($name != null)
+        {
+            $this->name = str_replace(', ', ',', $name);
+        }
 
         if ($properties != null) {
             $this->setProperties($properties);
         }
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -77,7 +96,7 @@ class Selector
 
         foreach ($this->properties as $property) {
             if (get_class($newProperty) === get_class($property) &&
-                get_class($property) != '\CssReducer\Css\Property\Property'
+                get_class($property) != 'CssReducer\Css\Property\Property'
             ) {
                 /* @var $property Property */
                 $property->merge($newProperty);
