@@ -48,7 +48,7 @@ class Property
         $this->inputs[] = array(
             'name' => $name,
             'value' => $value,
-            'is_important' => $isImportant,
+            'isImportant' => $isImportant,
         );
     }
 
@@ -57,7 +57,11 @@ class Property
      */
     public function merge(Property $newProperty)
     {
-        list($name, $value, $isImportant) = $newProperty->reduce();
+        $name = null;
+        $value = null;
+        $isImportant = null;
+
+        extract($newProperty->reduce());
 
         if ($isImportant)
         {
