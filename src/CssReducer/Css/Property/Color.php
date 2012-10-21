@@ -161,6 +161,20 @@ class Color extends Property
     }
 
     /**
+     *
+     * @param string $value
+     * @return boolean
+     */
+    public static function isColor($value)
+    {
+        $cssHexColorPattern = "~^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$~";
+        return
+            in_array($value, array_keys(self::getColornames())) ||
+            in_array($value, array('inherit', 'transparent')) ||
+            preg_match($cssHexColorPattern, $value);
+    }
+
+    /**
      * @return array
      */
     public static function getColornames()
