@@ -64,13 +64,8 @@ class Color extends Property
      * @param integer $b
      * @return string
      */
-    public static function rgb2hex($r, $g = -1, $b = -1)
+    public static function rgb2hex($r, $g, $b)
     {
-        if (is_array($r) && sizeof($r) == 3)
-        {
-            list($r, $g, $b) = $r;
-        }
-
         $r = intval($r);
         $g = intval($g);
         $b = intval($b);
@@ -84,6 +79,36 @@ class Color extends Property
         $color .= (strlen($b) < 2 ? '0' : '') . $b;
 
         return '#' . $color;
+    }
+
+    /**
+     * @param $code
+     * @return string
+     */
+    public static function toWebsafe($code)
+    {
+        $vals = array();
+        $out = '';
+
+        if ($code[0] == '#')
+        {
+            $code = substr($code, 1);
+        }
+
+        $vals['r'] = hexdec(substr($code, 0, 2));
+        $vals['g'] = hexdec(substr($code, 2, 2));
+        $vals['b'] = hexdec(substr($code, 4, 2));
+
+        // loop through
+        foreach ($vals as $val)
+        {
+            // convert value
+            $val = round($val / 51) * 51;
+            // convert to HEX
+            $out .= str_pad(dechex($val), 2, '0', STR_PAD_LEFT);
+        }
+
+        return '#' . $out;
     }
 
     /**
