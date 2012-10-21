@@ -48,5 +48,36 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         ), $color1->reduce());
     }
 
+    public function testConvertingHexColorsToShorthand()
+    {
+        $color = new Color('color', '#ffffff');
 
+        $this->assertEquals(array(
+            'name' => 'color',
+            'value' => '#fff',
+            'isImportant' => false,
+        ), $color->reduce());
+    }
+
+    public function testConvertingLongColorNamesToShorthandHexValue()
+    {
+        $color = new Color('color', 'white');
+
+        $this->assertEquals(array(
+            'name' => 'color',
+            'value' => '#fff',
+            'isImportant' => false,
+        ), $color->reduce());
+    }
+
+    public function testShortColorNameAreNotConverted()
+    {
+        $color = new Color('color', 'gold');
+
+        $this->assertEquals(array(
+            'name' => 'color',
+            'value' => 'gold',
+            'isImportant' => false,
+        ), $color->reduce());
+    }
 }
