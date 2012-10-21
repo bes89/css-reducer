@@ -100,4 +100,13 @@ class ColorTest extends \PHPUnit_Framework_TestCase
             'isImportant' => false,
         ), $color->reduce());
     }
+
+    public function testIsValidCssColor()
+    {
+        $this->assertEquals(true, Color::isColor('#fff'));
+        $this->assertEquals(true, Color::isColor('#f8f8f8'));
+        $this->assertEquals(true, Color::isColor('black'));
+        $this->assertEquals(false, Color::isColor('~rtw345 '));
+        $this->assertEquals(false, Color::isColor('#_ewfwf'));
+    }
 }
