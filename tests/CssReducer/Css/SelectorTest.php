@@ -26,7 +26,9 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
         $selector->setName('body');
         $selector->addProperty($property);
 
-        $this->assertSame($property, reset($selector->getProperties()));
+        $properties = $selector->getProperties();
+
+        $this->assertSame($property, $properties[0]);
     }
 
     public function testBasePropertiesAreNotMerged()
