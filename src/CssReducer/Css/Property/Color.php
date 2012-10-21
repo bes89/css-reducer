@@ -15,7 +15,64 @@ namespace CssReducer\Css\Property;
 class Color extends Property
 {
     /**
-     * converts a css color (hex) to rgb
+     * @return array
+     */
+    public function reduce()
+    {
+        $reduced = parent::reduce();
+
+        $reduced['value'] = self::toShorthand($reduced['value']);
+
+        return $reduced;
+    }
+
+    /**
+     * Converts XXYYZZ to XYZ
+     *
+     * @param string $value
+     * @throws \InvalidArgumentException
+     * @return string
+     */
+    public static function toShorthand($value)
+    {
+        $value = trim(strtolower($value));
+
+        if ($value == '') {
+            throw new \InvalidArgumentException('Color can not be empty.');
+        }
+
+        // these values can not be shorten
+        if (in_array($value, array('transparent', 'inherit'))) {
+            return $value;
+        }
+
+        if ($value{0} !== '#' && substr($value, 0, 3) != 'rgb') {
+            $colors = self::getColornames();
+
+            if (!array_key_exists($value, $colors)) {
+                throw new \InvalidArgumentException(sprintf('Color "%s" is invalid.', $value));
+            }
+
+            if (strlen(self::toShorthand('#' . $colors[$value])) < strlen($value)) {
+                $value = '#' . strtolower($colors[$value]);
+            }
+        }
+
+        if (strlen($value) !== 4 && substr($value, 0, 1) === "#") {
+            if (
+                $value{1} === $value{2} &&
+                $value{3} === $value{4} &&
+                $value{5} === $value{6}
+            ) {
+                return $value{0} . $value{1} . $value{3} . $value{5};
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * converts a color hex to rgb
      *
      * @param string $code
      * @throws \InvalidArgumentException
@@ -23,29 +80,23 @@ class Color extends Property
      */
     public static function hex2rgb($code)
     {
-        if ($code[0] == '#')
-        {
+        if ($code[0] == '#') {
             $code = substr($code, 1);
         }
 
-        if (strlen($code) == 6)
-        {
+        if (strlen($code) == 6) {
             list($r, $g, $b) = array(
                 $code[0] . $code[1],
                 $code[2] . $code[3],
                 $code[4] . $code[5],
             );
-        }
-        elseif (strlen($code) == 3)
-        {
+        } elseif (strlen($code) == 3) {
             list($r, $g, $b) = array(
                 $code[0] . $code[0],
                 $code[1] . $code[1],
                 $code[2] . $code[2],
             );
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('The hex value "' . $code . '" as color is invalid.');
         }
 
@@ -90,8 +141,7 @@ class Color extends Property
         $vals = array();
         $out = '';
 
-        if ($code[0] == '#')
-        {
+        if ($code[0] == '#') {
             $code = substr($code, 1);
         }
 
@@ -100,8 +150,7 @@ class Color extends Property
         $vals['b'] = hexdec(substr($code, 4, 2));
 
         // loop through
-        foreach ($vals as $val)
-        {
+        foreach ($vals as $val) {
             // convert value
             $val = round($val / 51) * 51;
             // convert to HEX
