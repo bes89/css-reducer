@@ -80,4 +80,24 @@ class ColorTest extends \PHPUnit_Framework_TestCase
             'isImportant' => false,
         ), $color->reduce());
     }
+
+    public function testShorthandWithTransparentAndInheritAsValueAreNotConverted()
+    {
+        $color = new Color('color', 'transparent');
+
+        $this->assertEquals(array(
+            'name' => 'color',
+            'value' => 'transparent',
+            'isImportant' => false,
+        ), $color->reduce());
+
+
+        $color = new Color('color', 'inherit');
+
+        $this->assertEquals(array(
+            'name' => 'color',
+            'value' => 'inherit',
+            'isImportant' => false,
+        ), $color->reduce());
+    }
 }
