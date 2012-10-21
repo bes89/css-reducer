@@ -82,6 +82,24 @@ class Property
             throw new \Exception('There are no inputs.');
         }
 
-        return end($this->inputs);
+        $foundAnImportantItem = false;
+        $indexOfItemToReturn = 0;
+
+        foreach ($this->inputs as $index => $input)
+        {
+            if ($foundAnImportantItem && !$input['isImportant'])
+            {
+                continue;
+            }
+
+            if (!$foundAnImportantItem && $input['isImportant'])
+            {
+                $foundAnImportantItem = true;
+            }
+
+            $indexOfItemToReturn = $index;
+        }
+
+        return $this->inputs[$indexOfItemToReturn];
     }
 }
