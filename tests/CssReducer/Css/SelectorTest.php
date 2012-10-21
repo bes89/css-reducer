@@ -31,8 +31,8 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
 
     public function testBasePropertiesAreNotMerged()
     {
-        $property1 = new Property();
-        $property2 = new Property();
+        $property1 = new Property('background-color', 'blue');
+        $property2 = new Property('background-color', 'blue');
 
         $selector = new Selector();
         $selector->setName('body');
@@ -44,8 +44,8 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
 
     public function testNoBasePropertiesOfDifferentTypesAreNotMerged()
     {
-        $property1 = new Property();
-        $property2 = new Color();
+        $property1 = new Property('background-color', 'blue');
+        $property2 = new Color('color', 'red');
 
         $selector = new Selector();
         $selector->setName('body');
@@ -57,8 +57,8 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
 
     public function testNoBasePropertiesOfSameTypeAreMerged()
     {
-        $property1 = new Color();
-        $property2 = new Color();
+        $property1 = new Color('color', 'blue');
+        $property2 = new Color('color', 'red');
 
         $selector = new Selector();
         $selector->setName('body');
