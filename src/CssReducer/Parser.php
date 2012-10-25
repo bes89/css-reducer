@@ -152,6 +152,7 @@ class Parser
             }
 
             foreach ($properties as $name => $value) {
+                unset($properties[$name]);
                 $properties[trim($name)] = trim($value);
             }
 
