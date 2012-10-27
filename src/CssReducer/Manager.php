@@ -22,9 +22,17 @@ class Manager
         $optimizer = new Optimizer();
         $optimizedCss = $optimizer->build($parsedCss);
 
-        $cssGenerator = new \CssReducer\Generator\Css();
+        $cssGenerator = new Generator\Css();
         $generatedCss = $cssGenerator->generate($optimizedCss);
 
-        return $generatedCss;
+        $cssMinifier = new Minifier();
+        $minifiedCss = $cssMinifier->minify($generatedCss, array(
+            'remove_comments' => true,
+            'remove_whitespaces' => true,
+            'remove_tabs' => true,
+            'remove_newlines' => true,
+        ));
+
+        return $minifiedCss;
     }
 }
