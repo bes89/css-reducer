@@ -104,10 +104,12 @@ class PropertyFactory
             'list-style',
             'list-style-*'
         ),
+        */
         'Margin' => array(
             'margin',
             'margin-*'
         ),
+        /*
         'MaxHeight' => array(
             'max-height'
         ),
