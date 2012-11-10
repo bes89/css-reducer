@@ -84,14 +84,24 @@ class Property
      */
     public function reduce()
     {
-        if (count($this->inputs) == 0) {
+        return $this->override($this->inputs);
+    }
+
+    /**
+     * @param $inputs
+     * @throws \Exception
+     * @return array
+     */
+    protected function override(array $inputs)
+    {
+        if (count($inputs) == 0) {
             throw new \Exception('There are no inputs.');
         }
 
         $foundAnImportantItem = false;
         $indexOfItemToReturn = 0;
 
-        foreach ($this->inputs as $index => $input) {
+        foreach ($inputs as $index => $input) {
             if ($foundAnImportantItem && !$input['isImportant']) {
                 continue;
             }
@@ -103,6 +113,32 @@ class Property
             $indexOfItemToReturn = $index;
         }
 
-        return $this->inputs[$indexOfItemToReturn];
+        return $inputs[$indexOfItemToReturn];
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public static function shortDimension($value)
+    {
+        $matches = array();
+
+        // 0px => 0
+        if (preg_match('~(0|0\.[0-9]*)(%|cm|ex|in|mm|pc|pt|px)~i', $value, $matches)) {
+            // 0.*
+            if ($matches[1] != '0') {
+                // 0.9em => .9em
+                if ($matches[2] == 'em') {
+                    return str_replace('0.', '.', $matches[1]) . $matches[2];
+                }
+            } // 0
+            else {
+                return '0';
+            }
+
+        }
+
+        return $value;
     }
 }
