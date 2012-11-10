@@ -134,10 +134,12 @@ class PropertyFactory
         'Position' => array(
             'position'
         ),
+        */
         'Padding' => array(
             'padding',
             'padding-*',
         ),
+        /*
         'Quotes' => array(
             'quotes'
         ),
