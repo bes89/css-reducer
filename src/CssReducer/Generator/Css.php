@@ -11,9 +11,21 @@
 
 namespace CssReducer\Generator;
 
+use CssReducer\Log\LoggerInterface;
+
 
 class Css
 {
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    function __construct(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+    }
+
     public function generate(array $optimizedCss)
     {
         $css = "";

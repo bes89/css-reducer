@@ -11,11 +11,19 @@
 
 namespace CssReducer;
 
+use CssReducer\Log\LoggerInterface;
+
+
 /**
  *
  */
 class Parser
 {
+    /**
+     * @var Log\LoggerInterface
+     */
+    protected $logger;
+
     /**
      *
      * @var string
@@ -36,6 +44,13 @@ class Parser
         'split_selectors' => false,
     );
 
+    /**
+     * @param Log\LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+    }
 
     /**
      *

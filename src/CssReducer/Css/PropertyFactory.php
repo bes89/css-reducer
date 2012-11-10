@@ -11,9 +11,16 @@
 
 namespace CssReducer\Css;
 
+use CssReducer\Log\LoggerInterface;
+
 
 class PropertyFactory
 {
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     /**
      * @var PropertyFactory
      */
@@ -194,17 +201,20 @@ class PropertyFactory
         )
     );
 
-    /**
-     *
-     */
     protected function __construct()
     {
-
     }
 
     /**
-     *
-     * @return PropertyFactory
+     * @param \CssReducer\Log\LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @return PropertyFactory|null
      */
     public static function getInstance()
     {
@@ -245,7 +255,7 @@ class PropertyFactory
             if ($matchedWildcard === true || in_array($name, $associatedProperties)) {
                 $className = '\CssReducer\Css\Property\\'.$class;
 
-                return new $className($name, $value);
+                return new $className($name, $value, $this->logger);
             }
         }
 

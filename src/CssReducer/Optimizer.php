@@ -10,8 +10,11 @@
  */
 
 namespace CssReducer;
+
 use CssReducer\Css\PropertyFactory;
 use CssReducer\Css\Selector;
+use CssReducer\Log\LoggerInterface;
+
 
 /**
  *
@@ -19,12 +22,27 @@ use CssReducer\Css\Selector;
 class Optimizer
 {
     /**
+     * @var \CssReducer\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @param Log\LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
      *
      * @param array $content
      * @return array
      */
     public function build(array $content)
     {
+        PropertyFactory::getInstance()->setLogger($this->logger);
+
         $selectorCollection = array();
 
         foreach ($content as $cssBlock) {

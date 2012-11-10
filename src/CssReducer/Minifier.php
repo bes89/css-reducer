@@ -11,11 +11,27 @@
 
 namespace CssReducer;
 
+use CssReducer\Log\LoggerInterface;
+
+
 /**
  *
  */
 class Minifier
 {
+    /**
+     * @var Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @param Log\LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      *
      * @var array

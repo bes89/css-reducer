@@ -11,9 +11,16 @@
 
 namespace CssReducer\Css\Property;
 
+use CssReducer\Log\LoggerInterface;
+
 
 class Property
 {
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     /**
      * @var array
      */
@@ -22,13 +29,15 @@ class Property
     /**
      * @param null|string $name
      * @param null|string $value
+     * @param LoggerInterface $logger
      */
-    public function __construct($name = null, $value = null)
+    public function __construct($name = null, $value = null, LoggerInterface $logger = null)
     {
-        if ($name !== null && $value !== null)
-        {
+        if ($name !== null && $value !== null) {
             $this->parse($name, $value);
         }
+
+        $this->logger = $logger;
     }
 
     /**
@@ -39,8 +48,7 @@ class Property
     {
         $isImportant = false;
 
-        if (strpos($value, '!important') !== false)
-        {
+        if (strpos($value, '!important') !== false) {
             $value = str_replace('!important', '', $value);
             $isImportant = true;
         }
@@ -63,8 +71,7 @@ class Property
 
         extract($newProperty->reduce());
 
-        if ($isImportant)
-        {
+        if ($isImportant) {
             $value .= '!important';
         }
 
@@ -77,23 +84,19 @@ class Property
      */
     public function reduce()
     {
-        if (count($this->inputs) == 0)
-        {
+        if (count($this->inputs) == 0) {
             throw new \Exception('There are no inputs.');
         }
 
         $foundAnImportantItem = false;
         $indexOfItemToReturn = 0;
 
-        foreach ($this->inputs as $index => $input)
-        {
-            if ($foundAnImportantItem && !$input['isImportant'])
-            {
+        foreach ($this->inputs as $index => $input) {
+            if ($foundAnImportantItem && !$input['isImportant']) {
                 continue;
             }
 
-            if (!$foundAnImportantItem && $input['isImportant'])
-            {
+            if (!$foundAnImportantItem && $input['isImportant']) {
                 $foundAnImportantItem = true;
             }
 
