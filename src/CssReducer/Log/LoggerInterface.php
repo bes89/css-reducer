@@ -14,4 +14,6 @@ namespace CssReducer\Log;
 
 interface LoggerInterface
 {
+    public function add($message, $type = 'info');
+    public function getContents();
 }
