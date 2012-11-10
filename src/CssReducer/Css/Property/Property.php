@@ -51,6 +51,8 @@ class Property
         if (strpos($value, '!important') !== false) {
             $value = str_replace('!important', '', $value);
             $isImportant = true;
+
+            $value = trim($value);
         }
 
         $this->inputs[] = array(
@@ -65,17 +67,21 @@ class Property
      */
     public function merge(Property $newProperty)
     {
-        $name = null;
-        $value = null;
-        $isImportant = null;
+        foreach ($newProperty->reduce() as $data)
+        {
+            $name = null;
+            $value = null;
+            $isImportant = null;
 
-        extract($newProperty->reduce());
+            extract($data);
 
-        if ($isImportant) {
-            $value .= '!important';
+            if ($isImportant) {
+                $value .= '!important';
+            }
+
+            $this->parse($name, $value);
         }
 
-        $this->parse($name, $value);
     }
 
     /**
@@ -84,7 +90,7 @@ class Property
      */
     public function reduce()
     {
-        return $this->override($this->inputs);
+        return array($this->override($this->inputs));
     }
 
     /**

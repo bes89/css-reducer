@@ -54,9 +54,21 @@ class Margin extends Property
         switch(count($groupedByPosition)) {
             case 1 :
 
-                $reduced = reset($groupedByPosition);
+                $reduced = array_values($groupedByPosition);
 
-            break;
+                break;
+
+            case 2 :
+
+                $reduced = array_values($groupedByPosition);
+
+                break;
+
+            case 3 :
+
+                $reduced = array_values($groupedByPosition);
+
+                break;
 
             case 4 :
 
@@ -69,6 +81,7 @@ class Margin extends Property
 
                     $reduced = $groupedByPosition['top'];
                     $reduced['name'] = 'margin';
+                    $reduced = array($reduced);
 
                 } elseif (
                         $groupedByPosition['top']['value'] == $groupedByPosition['bottom']['value'] &&
@@ -78,14 +91,16 @@ class Margin extends Property
                     // the left and right and the top and bottom sides have the same measurements
 
                     $reduced = array(
-                        'name' => 'margin',
-                        'value' => sprintf('%s %s',
-                            $groupedByPosition['top']['value'],
-                            $groupedByPosition['left']['value']
-                        ),
-                        'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
-                        // instance left is import but not the rest, when we set important to true then this will
-                        // be applied to all (top, left, right, bottom)
+                        array(
+                            'name' => 'margin',
+                            'value' => sprintf('%s %s',
+                                $groupedByPosition['top']['value'],
+                                $groupedByPosition['left']['value']
+                            ),
+                            'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
+                            // instance left is import but not the rest, when we set important to true then this will
+                            // be applied to all (top, left, right, bottom)
+                        )
                     );
 
                 } elseif ($groupedByPosition['left']['value'] == $groupedByPosition['right']['value']) {
@@ -93,15 +108,17 @@ class Margin extends Property
                     // the left and right side have the same measurements
 
                     $reduced = array(
-                        'name' => 'margin',
-                        'value' => sprintf('%s %s %s',
-                            $groupedByPosition['top']['value'],
-                            $groupedByPosition['left']['value'],
-                            $groupedByPosition['bottom']['value']
-                        ),
-                        'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
-                        // instance left is import but not the rest, when we set important to true then this will
-                        // be applied to all (top, left, right, bottom)
+                        array(
+                            'name' => 'margin',
+                            'value' => sprintf('%s %s %s',
+                                $groupedByPosition['top']['value'],
+                                $groupedByPosition['left']['value'],
+                                $groupedByPosition['bottom']['value']
+                            ),
+                            'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
+                            // instance left is import but not the rest, when we set important to true then this will
+                            // be applied to all (top, left, right, bottom)
+                        )
                     );
 
                 } else {
@@ -109,17 +126,20 @@ class Margin extends Property
                     // the sides have different measurements
 
                     $reduced = array(
-                        'name' => 'margin',
-                        'value' => sprintf('%s %s %s %s',
-                            $groupedByPosition['top']['value'],
-                            $groupedByPosition['right']['value'],
-                            $groupedByPosition['bottom']['value'],
-                            $groupedByPosition['left']['value']
+                        array(
+                            'name' => 'margin',
+                            'value' => sprintf('%s %s %s %s',
+                                $groupedByPosition['top']['value'],
+                                $groupedByPosition['right']['value'],
+                                $groupedByPosition['bottom']['value'],
+                                $groupedByPosition['left']['value']
 
-                        ),
-                        'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
-                        // instance left is import but not the rest, when we set important to true then this will
-                        // be applied to all (top, left, right, bottom)
+                            ),
+                            'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
+                            // instance left is import but not the rest, when we set important to true then this will
+                            // be applied to all (top, left, right, bottom)
+
+                        )
                     );
 
                 }
@@ -142,6 +162,7 @@ class Margin extends Property
     {
         $expandedInputs = array();
         $isImportant = $input['isImportant'];
+
         $values = explode(' ', $input['value']);
 
         foreach ($values as $index => $value) {

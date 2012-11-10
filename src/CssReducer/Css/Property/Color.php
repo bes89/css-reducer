@@ -21,7 +21,10 @@ class Color extends Property
     {
         $reduced = parent::reduce();
 
-        $reduced['value'] = self::toShorthand($reduced['value']);
+        foreach ($reduced as $index => $data)
+        {
+            $reduced[$index]['value'] = self::toShorthand($data['value']);
+        }
 
         return $reduced;
     }

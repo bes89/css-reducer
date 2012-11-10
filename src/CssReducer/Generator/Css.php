@@ -38,12 +38,15 @@ class Css
             {
                 $propertyData = $property->reduce();
 
-                $css .= sprintf("  %s: %s%s%s\n",
-                    $propertyData['name'],
-                    $propertyData['value'],
-                    $propertyData['isImportant'] ? ' !important' : '',
-                    count($selector->getProperties())-1 > $index ? ';' : ''
-                );
+                foreach ($propertyData as $data)
+                {
+                    $css .= sprintf("  %s: %s%s%s\n",
+                        $data['name'],
+                        $data['value'],
+                        $data['isImportant'] ? ' !important' : '',
+                        count($selector->getProperties())-1 > $index ? ';' : ''
+                    );
+                }
             }
 
             $css .= "}\n\n";

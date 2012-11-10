@@ -187,6 +187,14 @@ class Parser
     {
         $content = $this->load($fileUrlOrCss);
 
+        $minifier = new Minifier();
+        $content = $minifier->minify($content, array(
+            'remove_comments' => true,
+            'remove_whitespaces' => true,
+            'remove_tabs' => true,
+            'remove_newlines' => true,
+        ));
+
         $matches = array();
 
         if (!preg_match_all($this->pattern, $content, $matches)) {

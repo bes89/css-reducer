@@ -25,11 +25,11 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $color1->merge($color2);
         $color1->merge($color3);
 
-        $this->assertEquals(array(
+        $this->assertEquals(array(array(
             'name' => 'color',
             'value' => '#fff',
             'isImportant' => false,
-        ), $color1->reduce());
+        )), $color1->reduce());
     }
 
     public function testOverwritingWithImportantValue()
@@ -41,64 +41,64 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $color1->merge($color2);
         $color1->merge($color3);
 
-        $this->assertEquals(array(
+        $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'blue',
             'isImportant' => true,
-        ), $color1->reduce());
+        )), $color1->reduce());
     }
 
     public function testConvertingHexColorsToShorthand()
     {
         $color = new Color('color', '#ffffff');
 
-        $this->assertEquals(array(
+        $this->assertEquals(array(array(
             'name' => 'color',
             'value' => '#fff',
             'isImportant' => false,
-        ), $color->reduce());
+        )), $color->reduce());
     }
 
     public function testConvertingLongColorNamesToShorthandHexValue()
     {
         $color = new Color('color', 'white');
 
-        $this->assertEquals(array(
+        $this->assertEquals(array(array(
             'name' => 'color',
             'value' => '#fff',
             'isImportant' => false,
-        ), $color->reduce());
+        )), $color->reduce());
     }
 
     public function testShortColorNameAreNotConverted()
     {
         $color = new Color('color', 'gold');
 
-        $this->assertEquals(array(
+        $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'gold',
             'isImportant' => false,
-        ), $color->reduce());
+        )), $color->reduce());
     }
 
     public function testShorthandWithTransparentAndInheritAsValueAreNotConverted()
     {
         $color = new Color('color', 'transparent');
 
-        $this->assertEquals(array(
+        $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'transparent',
             'isImportant' => false,
-        ), $color->reduce());
+        )), $color->reduce());
 
 
         $color = new Color('color', 'inherit');
 
-        $this->assertEquals(array(
+        $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'inherit',
             'isImportant' => false,
-        ), $color->reduce());
+        )), $color->reduce());
     }
 
     public function testIsValidCssColor()
