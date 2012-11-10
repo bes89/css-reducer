@@ -124,9 +124,9 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $p->parse('padding-bottom', '3px');
 
         $this->assertEquals(array(array(
-        'name' => 'padding',
-        'value' => '9px 2px 3px',
-        'isImportant' => false,
+            'name' => 'padding',
+            'value' => '9px 2px 3px',
+            'isImportant' => false,
         )), $p->reduce());
     }
 

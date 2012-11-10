@@ -257,12 +257,12 @@ class PropertyFactory
             }
 
             if ($matchedWildcard === true || in_array($name, $associatedProperties)) {
-                $className = '\CssReducer\Css\Property\\'.$class;
+                $className = '\CssReducer\Css\Property\\' . $class;
 
                 return new $className($name, $value, $this->logger);
             }
         }
 
-        throw new \InvalidArgumentException('Unable to handle CSS property: '.$name);
+        throw new \InvalidArgumentException('Unable to handle CSS property: ' . $name);
     }
 }

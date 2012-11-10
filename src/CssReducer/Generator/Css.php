@@ -30,21 +30,18 @@ class Css
     {
         $css = "";
 
-        foreach ($optimizedCss as $selector)
-        {
+        foreach ($optimizedCss as $selector) {
             $css .= sprintf("%s {\n", $selector->getName());
 
-            foreach ($selector->getProperties() as $index => $property)
-            {
+            foreach ($selector->getProperties() as $index => $property) {
                 $propertyData = $property->reduce();
 
-                foreach ($propertyData as $data)
-                {
+                foreach ($propertyData as $data) {
                     $css .= sprintf("  %s: %s%s%s\n",
                         $data['name'],
                         $data['value'],
                         $data['isImportant'] ? ' !important' : '',
-                        count($selector->getProperties())-1 > $index ? ';' : ''
+                        count($selector->getProperties()) - 1 > $index ? ';' : ''
                     );
                 }
             }

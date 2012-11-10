@@ -124,9 +124,9 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $p->parse('margin-bottom', '3px');
 
         $this->assertEquals(array(array(
-        'name' => 'margin',
-        'value' => '9px 2px 3px',
-        'isImportant' => false,
+            'name' => 'margin',
+            'value' => '9px 2px 3px',
+            'isImportant' => false,
         )), $p->reduce());
     }
 

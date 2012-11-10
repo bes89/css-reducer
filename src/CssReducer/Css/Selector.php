@@ -35,8 +35,7 @@ class Selector
      */
     public function __construct($name = null, array $properties = null)
     {
-        if ($name != null)
-        {
+        if ($name != null) {
             $this->name = str_replace(', ', ',', $name);
         }
 

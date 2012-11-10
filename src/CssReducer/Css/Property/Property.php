@@ -67,8 +67,7 @@ class Property
      */
     public function merge(Property $newProperty)
     {
-        foreach ($newProperty->reduce() as $data)
-        {
+        foreach ($newProperty->reduce() as $data) {
             $name = null;
             $value = null;
             $isImportant = null;

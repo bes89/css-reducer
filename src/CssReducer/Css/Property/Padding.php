@@ -34,15 +34,13 @@ class Padding extends Property
 
         $groupedByPosition = array();
 
-        foreach ($expandedInputs as $expandedInput)
-        {
+        foreach ($expandedInputs as $expandedInput) {
             list(, $position) = explode('-', $expandedInput['name']);
 
             $groupedByPosition[$position][] = $expandedInput;
         }
 
-        foreach ($groupedByPosition as $position => $inputs)
-        {
+        foreach ($groupedByPosition as $position => $inputs) {
             $groupedByPosition[$position] = $this->override($inputs);
 
             // shorten dimension
@@ -51,24 +49,24 @@ class Padding extends Property
             );
         }
 
-        switch(count($groupedByPosition)) {
+        switch (count($groupedByPosition)) {
             case 1 :
 
                 $reduced = array_values($groupedByPosition);
 
-            break;
+                break;
 
             case 2 :
 
                 $reduced = array_values($groupedByPosition);
 
-            break;
+                break;
 
             case 3 :
 
                 $reduced = array_values($groupedByPosition);
 
-            break;
+                break;
 
             case 4 :
 
@@ -84,9 +82,9 @@ class Padding extends Property
                     $reduced = array($reduced);
 
                 } elseif (
-                        $groupedByPosition['top']['value'] == $groupedByPosition['bottom']['value'] &&
-                        $groupedByPosition['left']['value'] == $groupedByPosition['right']['value']
-                    ) {
+                    $groupedByPosition['top']['value'] == $groupedByPosition['bottom']['value'] &&
+                    $groupedByPosition['left']['value'] == $groupedByPosition['right']['value']
+                ) {
 
                     // the left and right and the top and bottom sides have the same measurements
 
@@ -143,9 +141,10 @@ class Padding extends Property
 
                 }
 
-            break;
+                break;
 
-            default: throw new \InvalidArgumentException;
+            default:
+                throw new \InvalidArgumentException;
 
         }
 
@@ -168,37 +167,41 @@ class Padding extends Property
         }
 
         switch (count($values)) {
-            case 1 : $case = array(
+            case 1 :
+                $case = array(
                     'top' => 1,
                     'bottom' => 1,
                     'left' => 1,
                     'right' => 1,
                 );
-            break;
+                break;
 
-            case 2 : $case = array(
+            case 2 :
+                $case = array(
                     'top' => 1,
                     'bottom' => 1,
                     'left' => 2,
                     'right' => 2,
                 );
-            break;
+                break;
 
-            case 3 : $case = array(
+            case 3 :
+                $case = array(
                     'top' => 1,
                     'bottom' => 3,
                     'left' => 2,
                     'right' => 2,
                 );
-            break;
+                break;
 
-            case 4 : $case = array(
+            case 4 :
+                $case = array(
                     'top' => 1,
                     'bottom' => 3,
                     'left' => 4,
                     'right' => 2,
                 );
-            break;
+                break;
 
             default:
 
@@ -209,8 +212,8 @@ class Padding extends Property
         foreach ($case as $position => $valueIndex) {
 
             $expandedInputs[] = array(
-                'name' => 'padding-'.$position,
-                'value' => $values[$valueIndex-1],
+                'name' => 'padding-' . $position,
+                'value' => $values[$valueIndex - 1],
                 'isImportant' => $isImportant,
             );
         }
