@@ -21,11 +21,17 @@ class Css
      */
     protected $logger;
 
-    function __construct(LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
 
+    /**
+     * This method expects results from Optimizer
+     *
+     * @param array $optimizedCss
+     * @return string
+     */
     public function generate(array $optimizedCss)
     {
         $css = "";
@@ -50,5 +56,40 @@ class Css
         }
 
         return $css;
+    }
+
+    /**
+     *
+     * @param string $css
+     * @return string
+     */
+    public function format($css)
+    {
+        $parser = new \CssReducer\Parser();
+        $parsedCss = $parser->parse($css);
+
+        $formattedCss = "";
+
+        foreach ($parsedCss as $item) {
+
+            foreach ($item as $selector => $properties)
+            {
+                $formattedCss .= sprintf("%s {\n", $selector);
+                $n = 0;
+
+                foreach ($properties as $propertyName => $propertyValue) {
+                    $formattedCss .= sprintf("  %s: %s%s\n",
+                        $propertyName,
+                        $propertyValue,
+                        count($properties) - 1 > $n ? ';' : ''
+                    );
+                    $n++;
+                }
+
+                $formattedCss .= "}\n\n";
+            }
+        }
+
+        return $formattedCss;
     }
 }
