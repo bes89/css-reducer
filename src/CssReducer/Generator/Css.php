@@ -37,17 +37,27 @@ class Css
         $css = "";
 
         foreach ($optimizedCss as $selector) {
+            $n = count($selector->getProperties());
+            $i = 0;
+
             $css .= sprintf("%s {\n", $selector->getName());
 
             foreach ($selector->getProperties() as $index => $property) {
                 $propertyData = $property->reduce();
 
+                if (count($propertyData) > 1)
+                {
+                    $n += count($propertyData) - 1;
+                }
+
                 foreach ($propertyData as $data) {
+                    $i++;
+
                     $css .= sprintf("  %s: %s%s%s\n",
                         $data['name'],
                         $data['value'],
                         $data['isImportant'] ? ' !important' : '',
-                        count($selector->getProperties()) - 1 > $index ? ';' : ''
+                        $n > $i ? ';' : ''
                     );
                 }
             }
