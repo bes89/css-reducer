@@ -181,7 +181,7 @@ class Parser
      *
      * @param $fileUrlOrCss
      * @throws \InvalidArgumentException
-     * @return string
+     * @return array
      */
     public function parse($fileUrlOrCss)
     {

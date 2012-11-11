@@ -17,17 +17,36 @@ use CssReducer\Log\LoggerInterface;
 class Manager
 {
     /**
+     * @var string
+     */
+    protected $originalCss;
+
+    /**
+     * @var string
+     */
+    protected $modifiedCss;
+
+    /**
      * @var LoggerInterface
      */
     protected $logger;
 
-    function __construct(LoggerInterface $logger = null)
+    /**
+     * @param Log\LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
 
+    /**
+     * @param string $css
+     * @return string
+     */
     public function reduce($css)
     {
+        $this->originalCss = $css;
+
         $parser = new Parser();
         $parsedCss = $parser->parse($css);
 
@@ -36,6 +55,8 @@ class Manager
 
         $cssGenerator = new Generator\Css($this->logger);
         $generatedCss = $cssGenerator->generate($optimizedCss);
+
+        $this->modifiedCss = $generatedCss;
 
         $cssMinifier = new Minifier($this->logger);
         $minifiedCss = $cssMinifier->minify($generatedCss, array(
@@ -48,8 +69,36 @@ class Manager
         return $minifiedCss;
     }
 
-    public function diff($originalCss, $modifiedCss)
+    /**
+     * @return string
+     */
+    public function getDiff()
     {
+        $options = array(
+            'ignoreWhitespace' => true,
+            'ignoreCase' => true,
+        );
 
+        $a = $this->originalCss;
+        $b = $this->modifiedCss;
+
+        $a = explode("\n", $this->format($a));
+        $b = explode("\n", $this->format($b));
+
+        $diff = new \Diff($a, $b, $options);
+
+        $renderer = new \Diff_Renderer_Html_SideBySide;
+        return $diff->Render($renderer);
+    }
+
+    /*
+     *
+     */
+    public function format($css)
+    {
+        $cssGenerator = new Generator\Css($this->logger);
+        $formattedCss = $cssGenerator->format($css);
+
+        return $formattedCss;
     }
 }
