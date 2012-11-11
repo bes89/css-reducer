@@ -130,7 +130,7 @@ class Property
         $matches = array();
 
         // 0px => 0
-        if (preg_match('~(0|0\.[0-9]*)(%|cm|ex|in|mm|pc|pt|px)~i', $value, $matches)) {
+        if (preg_match('~((?<![0-9])0|(?<![0-9])0\.[0-9]*)(%|cm|ex|in|mm|pc|pt|px|em)~i', $value, $matches)) {
             // 0.*
             if ($matches[1] != '0') {
                 // 0.9em => .9em
