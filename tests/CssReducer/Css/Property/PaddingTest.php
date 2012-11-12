@@ -16,7 +16,6 @@ use CssReducer\Css\Property\Padding;
 
 class PaddingTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testOneArgIsGiven()
     {
         $p = new Padding('padding', '3px');
@@ -151,6 +150,13 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $p = new Padding('padding', '0px');
         $this->assertEquals(array(array(
             'name' => 'padding',
+            'value' => '0',
+            'isImportant' => false,
+        )), $p->reduce());
+
+        $p = new Padding('padding-left', '0px');
+        $this->assertEquals(array(array(
+            'name' => 'padding-left',
             'value' => '0',
             'isImportant' => false,
         )), $p->reduce());
