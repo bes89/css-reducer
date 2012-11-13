@@ -78,10 +78,13 @@ class PropertyFactory
         'Display' => array(
             'display'
         ),
+        */
         'Font' => array(
             'font',
-            'font-*'
+            'font-*',
+            'line-height',
         ),
+        /*
         'Float' => array(
             'float'
         ),

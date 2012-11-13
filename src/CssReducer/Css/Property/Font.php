@@ -15,6 +15,94 @@ namespace CssReducer\Css\Property;
 class Font extends Property
 {
     /**
+     * @return array
+     */
+    public function reduce()
+    {
+        $reduced = array();
+        $expandedInputs = array();
+
+        foreach ($this->inputs as $input) {
+            if ($input['name'] == 'font') {
+                foreach ($this->expandValues($input) as $expandedInput) {
+                    $expandedInputs[] = $expandedInput;
+                }
+            } else {
+                $expandedInputs[] = $input;
+            }
+        }
+
+        $groups = array();
+
+        foreach ($expandedInputs as $expandedInput) {
+            list(, $subproperty) = explode('-', $expandedInput['name']);
+
+            $groups[$subproperty][] = $expandedInput;
+        }
+
+        foreach ($groups as $subproperty => $inputs) {
+            $groups[$subproperty] = $this->override($inputs);
+
+            // shorten dimension
+            if (in_array($subproperty, array('size', 'height')))
+            {
+                $groups[$subproperty]['value'] = $this->shortDimension(
+                    $groups[$subproperty]['value']
+                );
+            }
+
+            if ($subproperty == 'weight')
+            {
+                $groups[$subproperty]['value'] = $this->shortFontWeight(
+                    $groups[$subproperty]['value']
+                );
+            }
+        }
+
+        // size and family is required to reduce the input to shorthand
+        if (array_key_exists('size', $groups) && array_key_exists('family', $groups))
+        {
+            $value = "";
+
+            $order = array('style', 'variant', 'weight', 'size', 'height', 'family');
+
+            foreach ($order as $key)
+            {
+                if (array_key_exists($key, $groups))
+                {
+                    if ($value != "")
+                    {
+                        if (array_key_exists('size', $groups) && array_key_exists('height', $groups)
+                        && $key == 'height')
+                        {
+                            $value .= "/";
+                        }
+                        else
+                        {
+                            $value .= " ";
+                        }
+                    }
+
+                    $value .= $groups[$key]['value'];
+                }
+            }
+
+            $reduced = array(array(
+                'name' => 'font',
+                'value' => $value,
+                'isImportant' => false,
+            ));
+        }
+        else
+        {
+            $reduced = array_values($groups);
+        }
+
+        return $reduced;
+    }
+
+
+    /**
      * @param $input
      * @return array
      */
@@ -100,5 +188,24 @@ class Font extends Property
         }
 
         return $expandedInputs;
+    }
+
+    /**
+     *
+     * @param string $value
+     * @return string
+     */
+    protected function shortFontWeight($value)
+    {
+        switch ($value)
+        {
+            case 'bold': $value = '700';
+                break;
+            case 'normal': $value = '400';
+                break;
+            default: break;
+        }
+
+        return $value;
     }
 }
