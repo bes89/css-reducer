@@ -1,5 +1,5 @@
 {
-    "name":"besnikb/css-reducer",
+    "name":"bes/css-reducer",
     "type":"library",
     "description":"The css-reducer library",
     "keywords":["css", "minifier", "compressor"],
