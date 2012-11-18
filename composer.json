@@ -11,16 +11,10 @@
             "homepage":"http://www.besnik.de"
         }
     ],
-    "repositories": [
-        {
-            "type": "git",
-            "url": "http://github.com/chrisboulton/php-diff.git"
-        }
-    ],
     "require":{
         "php":">=5.3",
         "monolog/monolog":"*",
-        "chrisboulton/php-diff":"dev-master"
+        "phpspec/php-diff":"dev-master"
     },
     "autoload":{
         "psr-0":{
