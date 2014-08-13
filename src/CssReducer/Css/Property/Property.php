@@ -17,11 +17,15 @@ use CssReducer\Log\LoggerInterface;
 class Property
 {
     /**
+     * The logger
+     *
      * @var LoggerInterface
      */
     protected $logger;
 
     /**
+     * This array holds all the properties, structure has the following keys: 'name', 'value', 'important'
+     *
      * @var array
      */
     protected $inputs = array();
@@ -122,6 +126,8 @@ class Property
     }
 
     /**
+     * Removes dimension from null values (0 = 0px = 0cm = 0pt and so on)
+     *
      * @param $value
      * @return string
      */
