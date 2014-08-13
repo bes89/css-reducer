@@ -14,7 +14,8 @@
     "require":{
         "php":">=5.3",
         "monolog/monolog":"*",
-        "phpspec/php-diff":"dev-master"
+        "phpspec/php-diff":"dev-master",
+        "symfony/console": "v2.5.3"
     },
     "autoload":{
         "psr-0":{
