@@ -139,7 +139,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
         $input = array(
             'name' => 'font',
             'value' => $value,
-            'isImportant' => false
+            'important' => false
         );
 
         $f = new Font();
@@ -155,7 +155,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
             $expectedInputs[] = array(
                 'name' => 'font-style',
                 'value' => $style,
-                'isImportant' => false,
+                'important' => false,
             );
         }
 
@@ -164,7 +164,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
             $expectedInputs[] = array(
                 'name' => 'font-variant',
                 'value' => $variant,
-                'isImportant' => false,
+                'important' => false,
             );
         }
 
@@ -173,14 +173,14 @@ class FontTest extends \PHPUnit_Framework_TestCase
             $expectedInputs[] = array(
                 'name' => 'font-weight',
                 'value' => $weight,
-                'isImportant' => false,
+                'important' => false,
             );
         }
 
         $expectedInputs[] = array(
             'name' => 'font-size',
             'value' => $size,
-            'isImportant' => false,
+            'important' => false,
         );
 
 
@@ -189,14 +189,14 @@ class FontTest extends \PHPUnit_Framework_TestCase
             $expectedInputs[] = array(
                 'name' => 'line-height',
                 'value' => $lineHeight,
-                'isImportant' => false,
+                'important' => false,
             );
         }
 
         $expectedInputs[] = array(
             'name' => 'font-family',
             'value' => $family,
-            'isImportant' => false,
+            'important' => false,
         );
 
         foreach ($expectedInputs as $index => $expectedInput)

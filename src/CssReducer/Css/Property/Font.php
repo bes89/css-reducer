@@ -90,7 +90,7 @@ class Font extends Property
             $reduced = array(array(
                 'name' => 'font',
                 'value' => $value,
-                'isImportant' => false,
+                'important' => false,
             ));
         }
         else
@@ -119,7 +119,7 @@ class Font extends Property
 
         $expandedInputs = array();
         $matches = array();
-        $isImportant = $input['isImportant'];
+        $isImportant = $input['important'];
 
         if (preg_match($regex, $input['value'], $matches))
         {
@@ -131,7 +131,7 @@ class Font extends Property
                 $expandedInputs[] = array(
                     'name' => 'font-style',
                     'value' => $style,
-                    'isImportant' => $isImportant,
+                    'important' => $isImportant,
                 );
             }
 
@@ -141,7 +141,7 @@ class Font extends Property
                 $expandedInputs[] = array(
                     'name' => 'font-variant',
                     'value' => $variant,
-                    'isImportant' => $isImportant,
+                    'important' => $isImportant,
                 );
             }
 
@@ -151,7 +151,7 @@ class Font extends Property
                 $expandedInputs[] = array(
                     'name' => 'font-weight',
                     'value' => $weight,
-                    'isImportant' => $isImportant,
+                    'important' => $isImportant,
                 );
             }
 
@@ -159,7 +159,7 @@ class Font extends Property
             $expandedInputs[] = array(
                 'name' => 'font-size',
                 'value' => $size,
-                'isImportant' => $isImportant,
+                'important' => $isImportant,
             );
 
             // line-height is optional
@@ -168,7 +168,7 @@ class Font extends Property
                 $expandedInputs[] = array(
                     'name' => 'line-height',
                     'value' => $lineHeight,
-                    'isImportant' => $isImportant,
+                    'important' => $isImportant,
                 );
             }
 
@@ -176,7 +176,7 @@ class Font extends Property
             $expandedInputs[] = array(
                 'name' => 'font-family',
                 'value' => $family,
-                'isImportant' => $isImportant,
+                'important' => $isImportant,
             );
 
         }

@@ -58,7 +58,7 @@ class Property
         $this->inputs[] = array(
             'name' => $name,
             'value' => $value,
-            'isImportant' => $isImportant,
+            'important' => $isImportant,
         );
     }
 
@@ -107,11 +107,11 @@ class Property
         $indexOfItemToReturn = 0;
 
         foreach ($inputs as $index => $input) {
-            if ($foundAnImportantItem && !$input['isImportant']) {
+            if ($foundAnImportantItem && !$input['important']) {
                 continue;
             }
 
-            if (!$foundAnImportantItem && $input['isImportant']) {
+            if (!$foundAnImportantItem && $input['important']) {
                 $foundAnImportantItem = true;
             }
 

@@ -22,7 +22,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -32,7 +32,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '3px 6px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -42,7 +42,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '3px 6px 2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -53,7 +53,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '15px 5px 19px 2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         // 4 args are equal so we can use simple shorthand
@@ -61,7 +61,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '1px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         // the last (left) = the second (right) so we can remove the last
@@ -79,7 +79,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '1px 5px 3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         // padding-top -left -bottom and -right to shorthand
@@ -87,28 +87,28 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding-top',
             'value' => '2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         $p = new Padding('padding-right', '7px');
         $this->assertEquals(array(array(
             'name' => 'padding-right',
             'value' => '7px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         $p = new Padding('padding-bottom', '4px');
         $this->assertEquals(array(array(
             'name' => 'padding-bottom',
             'value' => '4px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         $p = new Padding('padding-left', '3px');
         $this->assertEquals(array(array(
             'name' => 'padding-left',
             'value' => '3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -125,7 +125,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '9px 2px 3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -141,7 +141,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -151,14 +151,14 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '0',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         $p = new Padding('padding-left', '0px');
         $this->assertEquals(array(array(
             'name' => 'padding-left',
             'value' => '0',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -168,7 +168,7 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'padding',
             'value' => '0',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 

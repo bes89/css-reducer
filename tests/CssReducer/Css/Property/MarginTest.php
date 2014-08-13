@@ -23,7 +23,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -33,7 +33,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '3px 6px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -43,7 +43,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '3px 6px 2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -54,7 +54,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '15px 5px 19px 2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         // 4 args are equal so we can use simple shorthand
@@ -62,7 +62,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '1px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         // the last (left) = the second (right) so we can remove the last
@@ -80,7 +80,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '1px 5px 3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         // margin-top -left -bottom and -right to shorthand
@@ -88,28 +88,28 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin-top',
             'value' => '2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         $p = new Margin('margin-right', '7px');
         $this->assertEquals(array(array(
             'name' => 'margin-right',
             'value' => '7px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         $p = new Margin('margin-bottom', '4px');
         $this->assertEquals(array(array(
             'name' => 'margin-bottom',
             'value' => '4px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
 
         $p = new Margin('margin-left', '3px');
         $this->assertEquals(array(array(
             'name' => 'margin-left',
             'value' => '3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -126,7 +126,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '9px 2px 3px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -142,7 +142,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '2px',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -152,7 +152,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '0',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 
@@ -162,7 +162,7 @@ class MarginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'margin',
             'value' => '0',
-            'isImportant' => false,
+            'important' => false,
         )), $p->reduce());
     }
 

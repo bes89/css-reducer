@@ -95,7 +95,7 @@ class Padding extends Property
                                 $groupedByPosition['top']['value'],
                                 $groupedByPosition['left']['value']
                             ),
-                            'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
+                            'important' => false // FIXME: many inputs are merged so when we should set this flag? for
                             // instance left is import but not the rest, when we set important to true then this will
                             // be applied to all (top, left, right, bottom)
                         )
@@ -113,7 +113,7 @@ class Padding extends Property
                                 $groupedByPosition['left']['value'],
                                 $groupedByPosition['bottom']['value']
                             ),
-                            'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
+                            'important' => false // FIXME: many inputs are merged so when we should set this flag? for
                             // instance left is import but not the rest, when we set important to true then this will
                             // be applied to all (top, left, right, bottom)
                         )
@@ -133,7 +133,7 @@ class Padding extends Property
                                 $groupedByPosition['left']['value']
 
                             ),
-                            'isImportant' => false // FIXME: many inputs are merged so when we should set this flag? for
+                            'important' => false // FIXME: many inputs are merged so when we should set this flag? for
                             // instance left is import but not the rest, when we set important to true then this will
                             // be applied to all (top, left, right, bottom)
                         )
@@ -159,7 +159,7 @@ class Padding extends Property
     protected function expandValues($input)
     {
         $expandedInputs = array();
-        $isImportant = $input['isImportant'];
+        $isImportant = $input['important'];
         $values = explode(' ', $input['value']);
 
         foreach ($values as $index => $value) {
@@ -214,7 +214,7 @@ class Padding extends Property
             $expandedInputs[] = array(
                 'name' => 'padding-' . $position,
                 'value' => $values[$valueIndex - 1],
-                'isImportant' => $isImportant,
+                'important' => $isImportant,
             );
         }
 

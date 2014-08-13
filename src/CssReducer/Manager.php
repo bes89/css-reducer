@@ -70,6 +70,7 @@ class Manager
     }
 
     /**
+     * @throws \InvalidArgumentException
      * @return string
      */
     public function getDiff()
@@ -78,6 +79,11 @@ class Manager
             'ignoreWhitespace' => true,
             'ignoreCase' => true,
         );
+
+        if ($this->originalCss == null || $this->modifiedCss == null)
+        {
+            throw new \InvalidArgumentException("No css parsed.");
+        }
 
         $a = $this->originalCss;
         $b = $this->modifiedCss;

@@ -56,7 +56,7 @@ class Css
                     $css .= sprintf("  %s: %s%s%s\n",
                         $data['name'],
                         $data['value'],
-                        $data['isImportant'] ? ' !important' : '',
+                        $data['important'] ? ' !important' : '',
                         $n > $i ? ';' : ''
                     );
                 }

@@ -28,7 +28,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'color',
             'value' => '#fff',
-            'isImportant' => false,
+            'important' => false,
         )), $color1->reduce());
     }
 
@@ -44,7 +44,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'blue',
-            'isImportant' => true,
+            'important' => true,
         )), $color1->reduce());
     }
 
@@ -55,7 +55,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'color',
             'value' => '#fff',
-            'isImportant' => false,
+            'important' => false,
         )), $color->reduce());
     }
 
@@ -66,7 +66,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'color',
             'value' => '#fff',
-            'isImportant' => false,
+            'important' => false,
         )), $color->reduce());
     }
 
@@ -77,7 +77,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'gold',
-            'isImportant' => false,
+            'important' => false,
         )), $color->reduce());
     }
 
@@ -88,7 +88,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'transparent',
-            'isImportant' => false,
+            'important' => false,
         )), $color->reduce());
 
 
@@ -97,7 +97,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(array(
             'name' => 'color',
             'value' => 'inherit',
-            'isImportant' => false,
+            'important' => false,
         )), $color->reduce());
     }
 
