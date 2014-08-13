@@ -108,12 +108,16 @@ class Font extends Property
      */
     protected function expandValues($input)
     {
+        if ($input['name'] == 'font' && $input['value'] == 'inherit') {
+            $input['value'] = str_repeat($input['value'], 6);
+        }
+
         $regex = sprintf('~%s$~i', implode('\s*', array(
             'style' => '(inherit|normal|italic|oblique)?',
             'variant' => '(inherit|normal|small-caps)?',
             'weight' => '(inherit|normal|bold(?:er)?|lighter|[1-9]00)?',
             'size' => '(\d+(?:%|px|em|pt)?|(?:x(?:x)?-)?(?:small|large)r?|medium|inherit)',
-            'height' => '\/?\s*(\d+(?:%|px|em|pt)?|normal|inherit)?',
+            'height' => '\/?\s?(\d+(?:%|px|em|pt)?|normal|inherit)?',
             'family' => '(inherit|default|.+)',
         )));
 
