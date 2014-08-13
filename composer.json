@@ -20,5 +20,6 @@
         "psr-0":{
             "CssReducer":"src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
