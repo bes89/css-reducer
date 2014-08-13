@@ -23,7 +23,8 @@ class ReduceCommand extends Command
             ->addArgument(
                 'save_file',
                 InputArgument::OPTIONAL,
-                'Where to save the reduced css?'
+                'Where to save the reduced css?',
+                false
             )
         ;
     }
@@ -37,8 +38,8 @@ class ReduceCommand extends Command
         $manager = new \CssReducer\Manager($logger);
         $reducedCss = $manager->reduce($css);
 
-        if ($input->hasArgument('save_file')) {
-            file_put_contents($input->hasArgument('save_file'), $reducedCss);
+        if ($input->getArgument('save_file')) {
+            file_put_contents($input->getArgument('save_file'), $reducedCss);
         }
 
         $s1 = strlen($css);
