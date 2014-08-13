@@ -142,7 +142,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
             'important' => false
         );
 
-        $f = new Font();
+        $f = new Font('font-family', 'Arial');
         $method = new \ReflectionMethod(get_class($f), 'expandValues');
         $method->setAccessible(true);
 

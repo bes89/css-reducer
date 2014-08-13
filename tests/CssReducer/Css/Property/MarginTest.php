@@ -115,9 +115,8 @@ class MarginTest extends \PHPUnit_Framework_TestCase
 
     public function testWithInheritance()
     {
-        $p = new Margin();
+        $p = new Margin('margin', '2px');
 
-        $p->parse('margin', '2px');
         $p->parse('margin-top', '5px');
         $p->parse('margin-top', '9px');
 
@@ -132,9 +131,8 @@ class MarginTest extends \PHPUnit_Framework_TestCase
 
     public function testWithInheritanceOverride()
     {
-        $p = new Margin();
+        $p = new Margin('margin-top', '5px');
 
-        $p->parse('margin-top', '5px');
         $p->parse('margin-top', '9px');
         $p->parse('margin-bottom', '3px');
         $p->parse('margin', '2px');

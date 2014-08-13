@@ -20,7 +20,7 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetAndGetProperty()
     {
-        $property = new Property();
+        $property = new Property('padding', '0');
 
         $selector = new Selector();
         $selector->setName('body');

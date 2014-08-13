@@ -35,7 +35,7 @@ class Property
      * @param null|string $value
      * @param LoggerInterface $logger
      */
-    public function __construct($name = null, $value = null, LoggerInterface $logger = null)
+    public function __construct($name, $value, LoggerInterface $logger = null)
     {
         if ($name !== null && $value !== null) {
             $this->parse($name, $value);

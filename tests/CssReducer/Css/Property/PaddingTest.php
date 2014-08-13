@@ -114,9 +114,8 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
 
     public function testWithInheritance()
     {
-        $p = new Padding();
+        $p = new Padding('padding', '2px');
 
-        $p->parse('padding', '2px');
         $p->parse('padding-top', '5px');
         $p->parse('padding-top', '9px');
 
@@ -131,9 +130,8 @@ class PaddingTest extends \PHPUnit_Framework_TestCase
 
     public function testWithInheritanceOverride()
     {
-        $p = new Padding();
+        $p = new Padding('padding-top', '5px');
 
-        $p->parse('padding-top', '5px');
         $p->parse('padding-top', '9px');
         $p->parse('padding-bottom', '3px');
         $p->parse('padding', '2px');
